@@ -1,0 +1,148 @@
+/* ============================
+   登录 / 注册 蓝紫风格样式
+============================ */
+
+/* 页面整体 */
+.wrapper{
+    min-height:600px;
+}
+
+.wrapper .main{
+    margin-top:40px;
+}
+
+/* ============================
+   Tab 标题
+============================ */
+.title{
+    margin-bottom:30px;
+}
+
+#myTab{
+    border-bottom:none;
+    display:flex;
+    justify-content:center;
+}
+
+#myTab li{
+    margin:0 10px;
+}
+
+#myTab li a{
+    border:none !important;
+    border-radius:30px;
+    padding:10px 26px;
+    font-size:16px;
+    font-weight:500;
+    color:#667eea;
+    background:#f3f5ff;
+    transition:all 0.3s;
+}
+
+#myTab li.active a,
+#myTab li a:hover{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff !important;
+}
+
+/* ============================
+   表单卡片
+============================ */
+.tab-content{
+    display:flex;
+    justify-content:center;
+}
+
+.tab-pane{
+    width:100%;
+}
+
+form.form-horizontal{
+    background:#fff;
+    padding:30px 40px;
+    border-radius:18px;
+    box-shadow:0 12px 30px rgba(102,126,234,0.15);
+}
+
+/* ============================
+   表单项
+============================ */
+.form-group{
+    margin-bottom:18px;
+}
+
+.control-label{
+    font-weight:500;
+    color:#555;
+}
+
+.form-control{
+    height:42px;
+    border-radius:12px;
+    border:1px solid #e0e4ff;
+    box-shadow:none;
+}
+
+.form-control:focus{
+    border-color:#667eea;
+    box-shadow:0 0 0 3px rgba(102,126,234,0.15);
+}
+
+/* ============================
+   校验提示
+============================ */
+.Validform_checktip{
+    font-size:13px;
+    color:#999;
+}
+
+/* ============================
+   单选按钮
+============================ */
+.radio-inline{
+    margin-right:20px;
+    font-size:14px;
+}
+
+/* ============================
+   按钮统一样式
+============================ */
+.btn-success{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    border:none;
+    border-radius:24px;
+    height:40px;
+    font-size:15px;
+    font-weight:600;
+}
+
+.btn-success:hover{
+    opacity:0.9;
+}
+
+.btn-warning{
+    background:#f1f3ff;
+    border:none;
+    border-radius:24px;
+    height:40px;
+    font-size:15px;
+    color:#667eea;
+    font-weight:500;
+}
+
+.btn-warning:hover{
+    background:#e6e9ff;
+}
+
+/* ============================
+   登录页居中优化
+============================ */
+#tab_login form{
+    max-width:520px;
+    margin:0 auto;
+}
+
+#tab_reg form{
+    max-width:760px;
+    margin:0 auto;
+}

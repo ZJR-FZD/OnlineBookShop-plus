@@ -1,0 +1,257 @@
+/* 管理员后台侧边栏样式 - 现代化紫色主题 */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+}
+
+/* 侧边栏容器 */
+.left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 220px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fd 100%);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 滚动条美化 */
+.left::-webkit-scrollbar {
+    width: 6px;
+}
+
+.left::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.left::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 3px;
+}
+
+.left::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.5);
+}
+
+/* 菜单列表 */
+.left > ul {
+    list-style: none;
+    padding: 15px 0;
+}
+
+.left ul .list {
+    list-style: none;
+    margin: 8px 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.left ul .list:hover {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+}
+
+/* 一级菜单标题 */
+.left .list h3 {
+    line-height: 48px;
+    height: 48px;
+    color: #fff;
+    font-size: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 标题图标 */
+.left .list h3::before {
+    content: '\25CF';
+    font-size: 8px;
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+    opacity: 0.5;
+}
+
+/* 展开箭头 */
+.left .list h3::after {
+    content: '›';
+    font-size: 24px;
+    transform: rotate(90deg);
+    transition: transform 0.3s;
+}
+
+.left .list h3.active::after {
+    transform: rotate(-90deg);
+}
+
+.left .list h3:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    padding-left: 24px;
+}
+
+/* 不同菜单的emoji图标 */
+.left .list:nth-child(1) h3::before {
+    content: '👥';
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.left .list:nth-child(2) h3::before {
+    content: '📚';
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.left .list:nth-child(3) h3::before {
+    content: '📦';
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.left .list:nth-child(4) h3::before {
+    content: '\2665';
+    font-size: 14px;
+    color: #f5576c;
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+}
+.left .list:nth-child(5) h3::before {
+    content: '\2605';
+    font-size: 14px;
+    color: #f0ad4e;
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+}
+
+/* 二级菜单容器 */
+.left ul .list ul {
+    background: #fafbfd;
+    padding: 0;
+    list-style: none;
+}
+
+/* 二级菜单项 */
+.left ul .list a {
+    display: block;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    color: #555;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    padding-left: 40px;
+    position: relative;
+    font-weight: 500;
+}
+
+/* 二级菜单项前的小圆点 */
+.left ul .list a::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: #bbb;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.left ul .list a:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.08);
+    padding-left: 45px;
+    border-left: 3px solid #667eea;
+}
+
+.left ul .list a:hover::before {
+    background: #667eea;
+    transform: translateY(-50%) scale(1.3);
+}
+
+.left ul .list a:active {
+    background: rgba(102, 126, 234, 0.15);
+}
+
+/* 当前激活的菜单项 */
+.left ul .list a.active {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    border-left: 3px solid #667eea;
+    font-weight: 600;
+}
+
+.left ul .list a.active::before {
+    background: #667eea;
+}
+
+/* 最后一个菜单项去掉下边框 */
+.left ul .list li:last-child a {
+    border-bottom: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .left {
+        width: 180px;
+    }
+
+    .left .list h3 {
+        font-size: 14px;
+        height: 42px;
+        line-height: 42px;
+        padding: 0 15px;
+        letter-spacing: 1px;
+    }
+
+    .left ul .list a {
+        font-size: 13px;
+        height: 38px;
+        line-height: 38px;
+        padding-left: 35px;
+    }
+}

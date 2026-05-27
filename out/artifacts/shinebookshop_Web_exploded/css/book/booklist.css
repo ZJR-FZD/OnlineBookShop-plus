@@ -1,0 +1,166 @@
+/* ========================
+   公共标题
+======================== */
+.wrapper .main h3{
+    border-bottom: 1px solid #e5e7ff;
+    padding:15px;
+    margin:10px 0;
+    color:#4f46e5;
+    font-weight:600;
+}
+
+/* ========================
+   左侧：图书分类（重点修改）
+======================== */
+.wrapper .main .main-left{
+    background: linear-gradient(180deg,#f5f7ff,#eef1ff);
+    border-radius:16px;
+    padding:10px 0;
+}
+
+.wrapper .main .main-left h3{
+    text-align:center;
+    font-size:18px;
+    border-bottom:none;
+}
+
+.wrapper .main .main-left ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.wrapper .main .main-left ul li{
+    margin:6px 12px;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.wrapper .main .main-left ul li a{
+    display:block;
+    padding:10px 14px;
+    height:auto;
+    line-height:1.4;
+    font-size:15px;          /* 🔥 字体变大 */
+    font-weight:500;
+    color:#5b5fc7;           /* 🔥 蓝紫色文字 */
+    text-decoration:none;
+    transition:all 0.3s ease;
+}
+
+.wrapper .main .main-left ul li a:hover{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+}
+
+/* ========================
+   右侧：图书列表
+======================== */
+.wrapper .main .pro .pro-list li{
+    padding:0 10px 14px 10px;
+    overflow:hidden;
+}
+
+.wrapper .main .pro .pro-list li .list{
+    border:1px solid #eef0ff;
+    border-radius:12px;
+    padding:10px;
+    transition:all 0.3s;
+}
+
+.wrapper .main .pro .pro-list li .list:hover{
+    box-shadow:0 8px 20px rgba(102,126,234,0.15);
+    transform:translateY(-4px);
+}
+
+.wrapper .main .pro .pro-list li .list a{
+    display:block;
+    overflow:hidden;
+}
+
+.wrapper .main .pro .pro-list li .list .proinfo{
+    padding:6px;
+}
+
+.wrapper .main .pro .pro-list li .list .proinfo h2 a{
+    display:block;
+    width:100%;
+    font-size:14px;
+    color:#333;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.wrapper .main .pro .pro-list li .list .proinfo p{
+    padding:6px 0;
+    margin:0;
+    height:32px;
+    line-height:32px;
+}
+
+.wrapper .main .pro .pro-list li .list .proinfo p i{
+    color:#4f46e5;
+    font-size:22px;
+    font-weight:600;
+}
+
+.wrapper .main .pro .pro-list li .list .proinfo p a{
+    float:right;
+    margin-top:4px;
+}
+
+/* ========================
+   分页样式（蓝紫）
+======================== */
+.wrapper .pager{
+    border-top:1px solid #eef0ff;
+    padding-top:18px;
+}
+
+.wrapper .pager .page-div{
+    display:inline-block;
+    width:110px;
+}
+
+.wrapper .homePage,
+.wrapper .prePage,
+.wrapper .page-go,
+.wrapper .nextPage,
+.wrapper .lastPage{
+    border-radius:20px;
+    color:#667eea;
+    border:1px solid #e0e4ff;
+    background:#f6f7ff;
+}
+
+.wrapper .homePage:hover,
+.wrapper .prePage:hover,
+.wrapper .page-go:hover,
+.wrapper .nextPage:hover,
+.wrapper .lastPage:hover{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+}
+
+.wrapper #page-input{
+    display:inline-block;
+    width:60px;
+    border-radius:12px;
+    border:1px solid #e0e4ff;
+}
+
+/* ========================
+   其他
+======================== */
+.wrapper .bookImg{
+    width:50px;
+}
+
+.wrapper .funbtn{
+    margin:10px 0;
+}
+
+.wrapper .funbtn a{
+    margin-right:10px;
+}

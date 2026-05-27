@@ -151,7 +151,17 @@
       "Bash(sed -n '71,78p' WebContent/jsp/admin/left.jsp)",
       "Bash([ -f \"out/artifacts/shinebookshop_Web_exploded/$f\" ])",
       "Bash([ ! -f \"out/artifacts/shinebookshop_Web_exploded/$f\" ])",
-      "Bash(cp WebContent/__TRACKED_VAR__ out/artifacts/shinebookshop_Web_exploded/__TRACKED_VAR__)"
+      "Bash(cp WebContent/__TRACKED_VAR__ out/artifacts/shinebookshop_Web_exploded/__TRACKED_VAR__)",
+      "Bash(rsync -a --exclude='WEB-INF/classes' WebContent/ out/artifacts/shinebookshop_Web_exploded/)",
+      "Bash(cp -r WebContent/css out/artifacts/shinebookshop_Web_exploded/)",
+      "Bash(cp -r WebContent/js out/artifacts/shinebookshop_Web_exploded/)",
+      "Bash(cp -r WebContent/jsp out/artifacts/shinebookshop_Web_exploded/)",
+      "Bash(cp -r WebContent/images out/artifacts/shinebookshop_Web_exploded/)",
+      "Bash(mkdir -p out/artifacts/shinebookshop_Web_exploded/jsp out/artifacts/shinebookshop_Web_exploded/css out/artifacts/shinebookshop_Web_exploded/js out/artifacts/shinebookshop_Web_exploded/images out/artifacts/shinebookshop_Web_exploded/bs out/artifacts/shinebookshop_Web_exploded/WEB-INF/lib)",
+      "Bash(cp -r WebContent/jsp/* out/artifacts/shinebookshop_Web_exploded/jsp/)",
+      "Bash(cp -r WebContent/css/* out/artifacts/shinebookshop_Web_exploded/css/)",
+      "Bash(cp -r WebContent/js/* out/artifacts/shinebookshop_Web_exploded/js/)",
+      "Bash(cp -r WebContent/images/* out/artifacts/shinebookshop_Web_exploded/images/)"
     ]
   }
 }
