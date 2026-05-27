@@ -12,6 +12,8 @@ import com.shine.bookshop.dao.BookDao;
 import com.shine.bookshop.dao.CatalogDao;
 import com.shine.bookshop.dao.impl.BookDaoImpl;
 import com.shine.bookshop.dao.impl.CatalogDaoImpl;
+import com.shine.bookshop.util.IpUtil;
+import com.shine.bookshop.util.OperationLogUtil;
 
 import net.sf.json.JSONObject;
 
@@ -82,6 +84,8 @@ public class CatalogServlet extends HttpServlet {
 		CatalogDao cd=new CatalogDaoImpl();
 		if(cd.catalogDel(catalogId)) {
 			request.setAttribute("catalogMessage", "该分类已删除");
+			String un1 = request.getSession().getAttribute("adminUser") != null ? ((com.shine.bookshop.bean.Admin)request.getSession().getAttribute("adminUser")).getUserName() : "unknown";
+					OperationLogUtil.recordAdminOp(un1, "删除分类", request.getParameter("id"), IpUtil.getClientIp(request));
 		}else {
 			request.setAttribute("catalogMessage", "该分类删除失败");
 		}
@@ -93,6 +97,8 @@ public class CatalogServlet extends HttpServlet {
 		CatalogDao cd =new CatalogDaoImpl();
 		if(cd.catalogAdd(catalogName)) {
 			request.setAttribute("catalogMessage", "增加分类成功");
+			String un = request.getSession().getAttribute("adminUser") != null ? ((com.shine.bookshop.bean.Admin)request.getSession().getAttribute("adminUser")).getUserName() : "unknown";
+					OperationLogUtil.recordAdminOp(un, "添加分类", request.getParameter("catalogName"), IpUtil.getClientIp(request));
 			catalogList(request,response);
 		}else {
 			request.setAttribute("catalogMessage", "增加分类失败");

@@ -1,6 +1,7 @@
 package com.shine.bookshop.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.shine.bookshop.bean.Book;
 import com.shine.bookshop.bean.Catalog;
@@ -52,5 +53,11 @@ public interface BookDao {
 
 	// 获取指定数量新添加的图书
 	List<Book> newBooks(int num);
+
+	// 浏览此书的人也买了什么（关联规则）
+	List<Map<String, Object>> findPurchasedByViewers(int bookId, int limit);
+
+	// 购买此书的也买了什么（协同过滤）
+	List<Map<String, Object>> findBoughtTogether(int bookId, int limit);
 
 }

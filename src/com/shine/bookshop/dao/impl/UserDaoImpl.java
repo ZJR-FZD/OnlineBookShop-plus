@@ -88,10 +88,10 @@ public class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public boolean userAdd(User user) {
-		String sql="insert into s_user(userName,userPassWord,name,sex,age,tell,address,enabled) values(?,?,?,?,?,?,?,?)";
-		
+		String sql="insert into s_user(userName,userPassWord,name,sex,age,tell,address,email,enabled) values(?,?,?,?,?,?,?,?,?)";
+
 		int i= DbUtil.excuteUpdate(sql, user.getUserName(),user.getUserPassWord(),user.getName(),user.getSex(),user.getAge()
-				,user.getTell(),user.getAddress(),user.getEnabled());
+				,user.getTell(),user.getAddress(),user.getEmail(),user.getEnabled());
 		
 		return i>0?true:false;	
 		
@@ -114,9 +114,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean userUpdate(User user) {
-		String sql="update s_user set userPassWord=?,name=?,sex=?,age=?,tell=?,address=?,enabled=? where userId =?";
+		String sql="update s_user set userPassWord=?,name=?,sex=?,age=?,tell=?,address=?,email=?,enabled=? where userId =?";
 		int i=DbUtil.excuteUpdate(sql,user.getUserPassWord(),user.getName(),user.getSex(),user.getAge()
-				,user.getTell(),user.getAddress(),user.getEnabled(),user.getUserId());
+				,user.getTell(),user.getAddress(),user.getEmail(),user.getEnabled(),user.getUserId());
 		
 		return i>0?true:false;
 	}

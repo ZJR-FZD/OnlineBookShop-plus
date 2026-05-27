@@ -109,6 +109,15 @@
 				</div>
 			</div>
 			<div class="form-group">
+					<label for="email" class="col-md-2 col-md-offset-2 control-label">邮箱：</label>
+					<div class="col-md-4">
+						<input type="text" id="email" name="email" class="form-control" placeholder="选填">
+					</div>
+					<div class="col-md-4">
+						<span class="Validform_checktip">选填</span>
+					</div>
+				</div>
+			<div class="form-group">
 				<label class="col-md-2  control-label col-md-offset-2">
 					<input class="btn btn-success btn-block" type="submit" value="添加">
 				</label>

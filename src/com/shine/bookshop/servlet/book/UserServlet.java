@@ -14,6 +14,8 @@ import com.shine.bookshop.bean.User;
 import com.shine.bookshop.dao.UserDao;
 import com.shine.bookshop.dao.impl.AdminDaoImpl;
 import com.shine.bookshop.dao.impl.UserDaoImpl;
+import com.shine.bookshop.util.IpUtil;
+import com.shine.bookshop.util.OperationLogUtil;
 
 import net.sf.json.JSONObject;
 
@@ -168,6 +170,7 @@ public class UserServlet extends HttpServlet {
 		if(user2!=null) {
 			if("y".equals(user2.getEnabled())) {
 				request.getSession().setAttribute(LANDING, user2);
+				OperationLogUtil.recordLogin(user2, IpUtil.getClientIp(request));
 				json.put("status","y" );
 			}else {
 				json.put("info", "该用户已被禁用，请联系管理员");
@@ -188,7 +191,8 @@ public class UserServlet extends HttpServlet {
 				request.getParameter("sex"),
 				Integer.parseInt(request.getParameter("age")),
 				request.getParameter("tell"),
-				request.getParameter("address"));
+				request.getParameter("address"),
+				request.getParameter("email"));
 		user.setEnabled("y");//默认添加的用户启用
 		//添加之前判断用户名是否在库中存在
 		if(new AdminDaoImpl().findUser(user.getUserName())){
@@ -224,6 +228,7 @@ public class UserServlet extends HttpServlet {
 		User user2=ud.userLogin(user);
 		if(user2!=null) {
 			if("y".equals(user2.getEnabled())) {
+				OperationLogUtil.recordLogin(user2, IpUtil.getClientIp(request));
 				request.getSession().setAttribute(LANDING, user2);
 				response.sendRedirect(INDEX_PATH);
 

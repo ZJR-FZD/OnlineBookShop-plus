@@ -14,6 +14,8 @@ import com.shine.bookshop.bean.PageBean;
 import com.shine.bookshop.dao.AdminDao;
 import com.shine.bookshop.dao.impl.AdminDaoImpl;
 import com.shine.bookshop.util.DateUtil;
+import com.shine.bookshop.util.IpUtil;
+import com.shine.bookshop.util.OperationLogUtil;
 
 import net.sf.json.JSONObject;
 
@@ -90,6 +92,8 @@ public class AdminManageServlet extends HttpServlet {
 		AdminDao ad=new AdminDaoImpl();
 		Admin admin=new Admin(request.getParameter("userName"),request.getParameter("passWord"),
 				request.getParameter("name"));
+		admin.setRole(request.getParameter("role") == null || request.getParameter("role").trim().isEmpty()
+				? "sales" : request.getParameter("role"));
 		//添加之前判断用户名是否在库中存在
 		if(new AdminDaoImpl().findUser(admin.getUserName())){
 			request.setAttribute("adminMessage", "用户添加失败！用户名已存在");
@@ -98,6 +102,8 @@ public class AdminManageServlet extends HttpServlet {
 			//执行dao层添加操作
 			if(ad.userAdd(admin)){
 				request.setAttribute("adminMessage", "用户添加成功！");
+			String un2 = request.getSession().getAttribute("adminUser") != null ? ((com.shine.bookshop.bean.Admin)request.getSession().getAttribute("adminUser")).getUserName() : "unknown";
+					OperationLogUtil.recordAdminOp(un2, "添加销售人员", request.getParameter("userName"), IpUtil.getClientIp(request));
 				adminList(request, response);//通过servlet中listUser跳到用户列表
 			}else{
 				request.setAttribute("adminMessage", "用户添加失败！");
@@ -112,9 +118,13 @@ public class AdminManageServlet extends HttpServlet {
 				request.getParameter("passWord"),
 				request.getParameter("name")
 				);
+		admin.setRole(request.getParameter("role") == null || request.getParameter("role").trim().isEmpty()
+				? admin.getRole() : request.getParameter("role"));
 		AdminDao ad=new AdminDaoImpl();
 		if(ad.userUpdate(admin)) {
 			request.setAttribute("adminMessage", "用户更新成功");
+			String un3 = request.getSession().getAttribute("adminUser") != null ? ((com.shine.bookshop.bean.Admin)request.getSession().getAttribute("adminUser")).getUserName() : "unknown";
+					OperationLogUtil.recordAdminOp(un3, "修改销售人员", request.getParameter("id"), IpUtil.getClientIp(request));
 			adminList(request, response);//通过servlet中listUser跳到用户列表
 		}else {
 			//更新失败跳转到修改页面

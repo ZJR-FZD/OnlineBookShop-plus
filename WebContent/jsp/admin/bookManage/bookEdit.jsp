@@ -205,6 +205,14 @@ h2 {
             <div class="col-sm-4 Validform_checktip"></div>
         </div>
 
+          <div class="form-group">
+              <label class="col-sm-2 col-sm-offset-2 control-label">库存</label>
+              <div class="col-sm-4">
+                  <input type="text" name="stock" class="form-control" value="${bookInfo.stock}">
+              </div>
+              <div class="col-sm-4 Validform_checktip">可直接调整库存数量</div>
+          </div>
+
         <div class="form-group">
             <label class="col-sm-2 col-sm-offset-2 control-label">图书作者</label>
             <div class="col-sm-4">

@@ -112,18 +112,19 @@
     }
 
     /* 标题 */
-    h2{
-        color:#554fd8;
-        font-weight:700;
-        margin-bottom:20px;
-    }
-</style>
+t	/* 订单状态标签 */
+		.status-tag { display:inline-block;padding:4px 12px;border-radius:14px;font-size:13px;color:#fff;margin:4px 0; }
+		.status-tag.pending { background:#f0ad4e; }
+		.status-tag.shipped { background:#5bc0de; }
+		.status-tag.done { background:#5cb85c; }
+	</style>
 </head>
 <body>
 	<div class="container-fullid">
 		<%@include file="header.jsp" %>
 		<div class="wrapper">
 			<div class="main container">
+				<c:if test="${!empty orderMessage}"><div class="alert alert-success text-center">${orderMessage}</div></c:if>
 				<h2>全部订单</h2>
 				<table class="table table-bordered">
 					<thead>
@@ -158,12 +159,12 @@
 												<c:when test="${vs.first}">
 													<td style="border:0;border-left:1px solid #ddd;">￥${order.money }</td>
 													<td style="border:0;border-left:1px solid #ddd;">
-														<c:if test="${order.orderStatus eq 1}"><p>订单已提交</p><p>(等待商家发货)</p></c:if>
+<c:if test="${order.orderStatus eq 1}"><span class="status-tag pending">待处理</span><p style="font-size:12px;color:#888;">(等待商家发货)</p></c:if>
 														<c:if test="${order.orderStatus eq 2}">
-															<p>已发货</p>
-															<a href="OrderServlet?action=ship&id=${order.orderId}" class="btn btn-sm btn-success" onclick="confirm('确认收货了么？')">确认收货</a>
+													<span class="status-tag shipped">已发货</span>
+															<a href="OrderServlet?action=ship&id=${order.orderId}" class="btn btn-sm btn-success" onclick="return confirm('确认收货了么？')">确认收货</a>
 														</c:if>
-														<c:if test="${order.orderStatus eq 3}">订单已完成</c:if>
+													<c:if test="${order.orderStatus eq 3}"><span class="status-tag done">已完成</span></c:if>
 													</td>
 												</c:when>
 												<c:otherwise>

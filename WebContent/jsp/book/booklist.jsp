@@ -121,6 +121,7 @@
 															</h2>
 															<p>
 																<i>${i.price}</i>
+																																		<span style="margin-left:8px;color:#888;font-size:12px;">库存：${i.stock}</span>
 																<a class="btn btn-danger btn-xs" onclick="addToCart(${i.bookId})" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-sm">ADD</a>
 															</p>
 														</div>

@@ -1,35 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<base href="<%=basePath%>">
-	<meta charset="UTF-8">
-	<title>main</title>
-	<style type="text/css">
-		*{
-		margin:0;
-		padding:0;
-		}
-		body{
-			background:#eee;
-		}
-		h2{
-			text-align:center;
-			position:absolute;
-			left:0;
-			right:0;
-			top:40%;
-		}
-
-
-	</style>
+<meta charset="UTF-8">
+<title>欢迎</title>
+<style>
+	*{margin:0;padding:0;}
+	body{background:#f0f2f5;font-family:"Microsoft YaHei","PingFang SC",sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+	.msg{text-align:center;color:#999;font-size:15px;}
+	.msg h3{color:#555;margin-bottom:8px;}
+</style>
 </head>
 <body>
-	<h2>欢迎登陆当当小书屋后台管理系统！</h2>
+<div class="msg">
+	<h3>欢迎，${adminUser.name}</h3>
+	<p>请从左侧菜单选择功能</p>
+</div>
 </body>
 </html>

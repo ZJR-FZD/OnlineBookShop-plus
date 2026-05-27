@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shine.bookshop.bean.Cart;
 import com.shine.bookshop.bean.CartItem;
+import com.shine.bookshop.bean.Book;
 import com.shine.bookshop.bean.Order;
 import com.shine.bookshop.bean.OrderItem;
 import com.shine.bookshop.bean.PageBean;
@@ -24,6 +25,10 @@ import com.shine.bookshop.dao.impl.BookDaoImpl;
 import com.shine.bookshop.dao.impl.OrderDaoImpl;
 import com.shine.bookshop.dao.impl.OrderItemDaoImpl;
 import com.shine.bookshop.util.DateUtil;
+import com.shine.bookshop.util.DbUtil;
+import com.shine.bookshop.util.EmailUtil;
+import com.shine.bookshop.util.IpUtil;
+import com.shine.bookshop.util.OperationLogUtil;
 import com.shine.bookshop.util.RanUtil;
 
 /**
@@ -123,6 +128,16 @@ public class OrderSubServlet extends HttpServlet {
 		Order order=new Order();
 		OrderDao orderDao=new OrderDaoImpl();
 		OrderItemDao oItemDao=new OrderItemDaoImpl();
+		BookDao bookDao=new BookDaoImpl();
+
+		for(Map.Entry<Integer, CartItem> meic:cart.getMap().entrySet()) {
+			Book book = bookDao.findBookById(meic.getKey());
+			if(book == null || book.getStock() < meic.getValue().getQuantity()) {
+				request.setAttribute("suberr", "图书【" + (book == null ? meic.getKey() : book.getBookName()) + "】库存不足，请调整购物车后再下单");
+				request.getRequestDispatcher(CART_PATH).forward(request, response);
+				return;
+			}
+		}
 		
 		//给订单对象属性赋值
 		order.setOrderNum(orderNum);
@@ -134,6 +149,7 @@ public class OrderSubServlet extends HttpServlet {
 		if(orderDao.orderAdd(order)) {
 			//订单保存成功通过订单号获取订单编号，订单项留用
 			order.setOrderId(orderDao.findOrderIdByOrderNum(orderNum));
+			int itemCount = 0;
 			//
 			for(Map.Entry<Integer, CartItem> meic:cart.getMap().entrySet()) {
 				OrderItem oi=new OrderItem();
@@ -141,7 +157,11 @@ public class OrderSubServlet extends HttpServlet {
 				oi.setQuantity(meic.getValue().getQuantity());
 				oi.setOrderId(order.getOrderId());
 				oItemDao.orderAdd(oi);
+				DbUtil.excuteUpdate("update s_book set stock = stock - ? where bookId=?", meic.getValue().getQuantity(), meic.getKey());
+				itemCount += meic.getValue().getQuantity();
 			}
+			OperationLogUtil.recordPurchase(user, orderNum, order.getMoney(), itemCount, IpUtil.getClientIp(request));
+			EmailUtil.sendOrderConfirm(user, orderNum, order.getMoney(), itemCount);
 			//订单项保存结束清空购物车，返回订单提交成功
 			session.removeAttribute("shopCart");
 			request.setAttribute("orderNum", order.getOrderNum());

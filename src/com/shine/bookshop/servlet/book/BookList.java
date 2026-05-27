@@ -14,6 +14,7 @@ import com.shine.bookshop.bean.Book;
 import com.shine.bookshop.bean.PageBean;
 import com.shine.bookshop.dao.BookDao;
 import com.shine.bookshop.dao.impl.BookDaoImpl;
+import com.shine.bookshop.util.OperationLogUtil;
 
 /**
  * Servlet implementation class BookList
@@ -60,6 +61,7 @@ public class BookList extends HttpServlet {
 			int catalogId=Integer.parseInt(catalogIdStr);
 			pb = new PageBean(curPage, MAX_LIST_SIZE, bd.bookReadCount(catalogId));
 			bookList = bd.bookList(pb,catalogId);
+			OperationLogUtil.recordBrowse((com.shine.bookshop.bean.User) request.getSession().getAttribute("landing"), catalogId, "catalog:" + catalogId, "book list");
 			
 			if(bookList.size()>0) {
 				request.setAttribute("title", bookList.get(0).getCatalog().getCatalogName());//从返回的分类集合中第一个获取数据的分类
@@ -69,6 +71,7 @@ public class BookList extends HttpServlet {
 			pb = new PageBean(curPage, MAX_LIST_SIZE, bd.bookReadCount());
 			bookList = bd.bookList(pb);
 			request.setAttribute("title", "所有图书");
+			OperationLogUtil.recordBrowse((com.shine.bookshop.bean.User) request.getSession().getAttribute("landing"), null, "all-books", "book list");
 		}
 		
 		request.setAttribute("pageBean", pb);

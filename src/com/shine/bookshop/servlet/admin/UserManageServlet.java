@@ -139,6 +139,7 @@ public class UserManageServlet extends HttpServlet {
 				Integer.parseInt(request.getParameter("age")),
 				request.getParameter("tell"),
 				request.getParameter("address"),
+				request.getParameter("email"),
 				request.getParameter("enabled"));
 		UserDao ud=new UserDaoImpl();
 		if(ud.userUpdate(user)) {
@@ -185,7 +186,8 @@ public class UserManageServlet extends HttpServlet {
 				request.getParameter("sex"),
 				Integer.parseInt(request.getParameter("age")),
 				request.getParameter("tell"),
-				request.getParameter("address"));
+				request.getParameter("address"),
+				request.getParameter("email"));
 		user.setEnabled("y");//默认添加的用户启用
 		//添加之前判断用户名是否在库中存在
 		if(new AdminDaoImpl().findUser(user.getUserName())){

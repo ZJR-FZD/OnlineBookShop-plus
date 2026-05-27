@@ -221,6 +221,10 @@
                             <td>${bookInfo.addTime}</td>
                         </tr>
                         <tr>
+                            <td>库存</td>
+                            <td>${bookInfo.stock}</td>
+                        </tr>
+                        <tr>
                             <td>服务</td>
                             <td>书城自营 · 三日内送达 · 支持7天无理由退货</td>
                         </tr>
@@ -266,5 +270,42 @@
     </div>
 </div>
 
+<c:if test="${!empty alsoBought}">
+	<div class="container" style="margin-top:30px;">
+		<h3 style="border-left:4px solid #667eea;padding-left:12px;">看了又买</h3>
+		<div style="display:flex;gap:16px;overflow-x:auto;padding:15px 0;">
+		<c:forEach items="${alsoBought}" var="ab">
+		<div style="min-width:160px;background:#fff;border-radius:10px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+			<a href="bookdetail?bookId=${ab.bookId}"><img src="${ab.imgSrc}" style="width:80px;height:80px;object-fit:cover;border-radius:6px;"></a>
+			<p style="margin:8px 0 4px;font-weight:600;font-size:13px;"><a href="bookdetail?bookId=${ab.bookId}">${ab.bookName}</a></p>
+			<p style="color:#f5576c;font-weight:bold;">￥${ab.price}</p>
+		</div>
+		</c:forEach>
+		</div>
+	</div>
+	</c:if>
+	<c:if test="${!empty boughtTogether}">
+	<div class="container" style="margin-top:30px;">
+		<h3 style="border-left:4px solid #43e97b;padding-left:12px;">购买此书的也买了</h3>
+		<div style="display:flex;gap:16px;overflow-x:auto;padding:15px 0;">
+		<c:forEach items="${boughtTogether}" var="bt">
+		<div style="min-width:160px;background:#fff;border-radius:10px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+			<a href="bookdetail?bookId=${bt.bookId}"><img src="${bt.imgSrc}" style="width:80px;height:80px;object-fit:cover;border-radius:6px;"></a>
+			<p style="margin:8px 0 4px;font-weight:600;font-size:13px;"><a href="bookdetail?bookId=${bt.bookId}">${bt.bookName}</a></p>
+			<p style="color:#f5576c;font-weight:bold;">￥${bt.price}</p>
+		</div>
+		</c:forEach>
+		</div>
+	</div>
+	</c:if>
+
+	<script>
+	var _enterTime = Date.now();
+	window.addEventListener('beforeunload', function(){
+		var d = Math.floor((Date.now() - _enterTime) / 1000);
+		var b = '${bookInfo.bookId}';
+		if (b) navigator.sendBeacon('bookdetail?action=log&bookId=' + b + '&duration=' + d);
+	});
+	</script>
 </body>
 </html>

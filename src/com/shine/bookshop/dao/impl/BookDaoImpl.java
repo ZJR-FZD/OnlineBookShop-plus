@@ -43,11 +43,11 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public boolean bookAdd(Book book) {
-		String sql = "insert into s_book(bookName,catalogId,author,press,price,description,imgId,addTime) values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into s_book(bookName,catalogId,author,press,price,description,imgId,addTime,stock) values(?,?,?,?,?,?,?,?,?)";
 
 		int i = DbUtil.excuteUpdate(sql, book.getBookName(), book.getCatalog().getCatalogId(), book.getAuthor(),
 				book.getPress(), book.getPrice(), book.getDescription(), book.getUpLoadImg().getImgId(),
-				DateUtil.getTimestamp());
+				DateUtil.getTimestamp(), book.getStock());
 
 		return i > 0 ? true : false;
 	}
@@ -78,9 +78,9 @@ public class BookDaoImpl implements BookDao {
 	 */
 	@Override
 	public boolean bookUpdate(Book book) {
-		String sql = "update s_book set catalogId=?,author=?,press=?,price=?,description=? where bookId=?";
+		String sql = "update s_book set catalogId=?,author=?,press=?,price=?,description=?,stock=? where bookId=?";
 		int i = DbUtil.excuteUpdate(sql, book.getCatalogId(), book.getAuthor(), book.getPress(), book.getPrice(),
-				book.getDescription(), book.getBookId());
+				book.getDescription(), book.getStock(), book.getBookId());
 		return i > 0 ? true : false;
 	}
 
@@ -247,4 +247,29 @@ public class BookDaoImpl implements BookDao {
 		return lm.size() > 0 ? (long) lm.get(0).get("count") : 0;
 	}
 
+	@Override
+		public List<Map<String, Object>> findPurchasedByViewers(int bookId, int limit) {
+			String sql = "select b2.bookId, b2.bookName, b2.price, b2.author, i.imgSrc, count(*) as cnt"
+				+ " from s_operation_log l1"
+				+ " join s_operation_log l2 on l1.userId = l2.userId"
+				+ " join s_book b2 on l2.targetId = b2.bookId"
+				+ " left join s_uploadimg i on b2.imgId = i.imgId"
+				+ " where l1.logType='BROWSE' and l1.targetId = ?"
+				+ " and l2.logType='PURCHASE' and l2.targetId is not null and l2.targetId != ?"
+				+ " group by b2.bookId, b2.bookName, b2.price, b2.author, i.imgSrc"
+				+ " order by cnt desc limit ?";
+			return DbUtil.executeQuery(sql, bookId, bookId, limit);
+		}
+		@Override
+		public List<Map<String, Object>> findBoughtTogether(int bookId, int limit) {
+			String sql = "select b.bookId, b.bookName, b.price, i.imgSrc, count(*) as cnt"
+				+ " from s_orderitem oi1"
+				+ " join s_orderitem oi2 on oi1.orderId = oi2.orderId"
+				+ " join s_book b on oi2.bookId = b.bookId"
+				+ " left join s_uploadimg i on b.imgId = i.imgId"
+				+ " where oi1.bookId = ? and oi2.bookId != ?"
+				+ " group by b.bookId, b.bookName, b.price, i.imgSrc"
+				+ " order by cnt desc limit ?";
+			return DbUtil.executeQuery(sql, bookId, bookId, limit);
+		}
 }

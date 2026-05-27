@@ -31,7 +31,7 @@
 	</c:if>
 	<div class="container">
 		
-		<h2 class="text-center">用户增加</h2>
+		<h2 class="text-center">添加销售人员</h2>
 		<form id="myForm" action="jsp/admin/AdminManageServlet?action=add" method="post" class="form-horizontal"">
 				<div class="form-group">
 					<label for="userName" class="col-sm-2 col-sm-offset-2 control-label">用户名：</label>
@@ -69,7 +69,19 @@
 						<span class="Validform_checktip">姓名为2~8位字符</span>
 					</div>
 				</div>
-			
+				<div class="form-group">
+					<label for="role" class="col-sm-2 col-sm-offset-2 control-label">角色：</label>
+					<div class="col-sm-4">
+						<select name="role" id="role" class="form-control">
+							<option value="sales" selected>销售人员</option>
+							<option value="admin">管理员</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<span class="Validform_checktip">默认创建销售账号</span>
+					</div>
+				</div>
+
 				<div class="form-group">
 					<label class="col-sm-2 col-sm-offset-2 control-label">
 						<input class="btn btn-success btn-block" type="submit" value="提交">

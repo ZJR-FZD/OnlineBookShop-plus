@@ -21,6 +21,8 @@ public class AdminDaoImpl implements AdminDao {
 			flag=true;
 			//这里需要name值传入对象中
 			admin.setName((String)list.get(0).get("name"));
+			Object roleValue = list.get(0).get("role");
+			admin.setRole(roleValue == null ? "sales" : String.valueOf(roleValue));
 			//通过登录成功用户的id更新最后登录时间
 			DbUtil.excuteUpdate(sql2, DateUtil.getTimestamp(),list.get(0).get("id"));
 		}
@@ -35,7 +37,7 @@ public class AdminDaoImpl implements AdminDao {
 		List<Admin> lu=new ArrayList<>();
 		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
 		
-		String sql="select * from s_admin limit ?,?";
+		String sql="select * from s_admin where role='sales' limit ?,?";
 		
 		list=DbUtil.executeQuery(sql,(pageBean.getCurPage()-1)*pageBean.getMaxSize(),pageBean.getMaxSize());
 		
@@ -54,9 +56,9 @@ public class AdminDaoImpl implements AdminDao {
 	 */
 	@Override
 	public boolean userAdd(Admin user) {
-		String sql="insert into s_admin(userName,password,name) values(?,?,?)";
+		String sql="insert into s_admin(userName,passWord,name,role) values(?,?,?,?)";
 		
-		int i= DbUtil.excuteUpdate(sql, user.getUserName(),user.getPassWord(),user.getName());
+		int i= DbUtil.excuteUpdate(sql, user.getUserName(),user.getPassWord(),user.getName(),user.getRole());
 		
 		return i>0?true:false;	
 		
@@ -91,8 +93,8 @@ public class AdminDaoImpl implements AdminDao {
 	 */
 	@Override
 	public boolean userUpdate(Admin admin) {
-		String sql="update s_admin set password=? , name=? where id =?";
-		int i=DbUtil.excuteUpdate(sql, admin.getPassWord(),admin.getName(),admin.getId());
+		String sql="update s_admin set passWord=? , name=? , role=? where id =?";
+		int i=DbUtil.excuteUpdate(sql, admin.getPassWord(),admin.getName(),admin.getRole(),admin.getId());
 		
 		return i>0?true:false;
 	}
@@ -119,7 +121,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public long bookReadCount() {
 		long count=0;
-		String sql="select count(*) as count from s_admin";
+		String sql="select count(*) as count from s_admin where role='sales'";
 		List<Map<String, Object>> lm=DbUtil.executeQuery(sql);
 		if(lm.size()>0){
 			count=(long) lm.get(0).get("count");

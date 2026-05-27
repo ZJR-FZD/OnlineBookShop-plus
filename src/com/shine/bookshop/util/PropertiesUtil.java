@@ -18,12 +18,27 @@ public class PropertiesUtil {
 	
 	public static String getValue(String key){
 		try {
-			bundle=ResourceBundle.getBundle(DbUtil.BASE_NAME);//这里通过类常量(db文件名)获取资源
+			bundle=ResourceBundle.getBundle(DbUtil.BASE_NAME);
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		
+
 		return bundle.getString(key);
+	}
+
+	public static String getProperty(String key, String defaultValue) {
+		Properties p = new Properties();
+		try {
+			InputStream is = PropertiesUtil.class.getResourceAsStream("/dbinfo.properties");
+			if (is != null) {
+				p.load(is);
+				is.close();
+				return p.getProperty(key, defaultValue);
+			}
+		} catch (IOException e) {
+			System.out.println(DateUtil.show() + ">>读取配置文件失败!" + e.getMessage());
+		}
+		return defaultValue;
 	}
 	
 

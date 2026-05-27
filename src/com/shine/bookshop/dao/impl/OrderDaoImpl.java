@@ -47,7 +47,7 @@ public class OrderDaoImpl implements OrderDao {
 		List<Order> lo=new ArrayList<>();
 		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
 		
-		String sql="select * from s_order where userId=? limit ?,?";
+		String sql="select * from s_order where userId=? order by orderId desc limit ?,?";
 		
 		list=DbUtil.executeQuery(sql,userId,(pageBean.getCurPage()-1)*pageBean.getMaxSize(),pageBean.getMaxSize());
 		
@@ -66,7 +66,7 @@ public class OrderDaoImpl implements OrderDao {
 		List<Order> lo=new ArrayList<>();
 		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
 		
-		String sql="select * from s_order where orderNum like '%"+ordernum+"%' limit ?,?";
+		String sql="select * from s_order where orderNum like '%"+ordernum+"%' order by orderId desc limit ?,?";
 		
 		list=DbUtil.executeQuery(sql,(pageBean.getCurPage()-1)*pageBean.getMaxSize(),pageBean.getMaxSize());
 		
@@ -92,7 +92,7 @@ public class OrderDaoImpl implements OrderDao {
 		List<Order> lo=new ArrayList<>();
 		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
 		
-		String sql="select * from s_order limit ?,?";
+		String sql="select * from s_order order by orderId desc limit ?,?";
 		
 		list=DbUtil.executeQuery(sql,(pageBean.getCurPage()-1)*pageBean.getMaxSize(),pageBean.getMaxSize());
 		
@@ -136,7 +136,7 @@ public class OrderDaoImpl implements OrderDao {
 		List<Order> lo=new ArrayList<>();
 		List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
 		
-		String sql="select * from s_order where orderStatus=? limit ?,?";
+		String sql="select * from s_order where orderStatus=? order by orderId desc limit ?,?";
 		
 		list=DbUtil.executeQuery(sql,status,(pageBean.getCurPage()-1)*pageBean.getMaxSize(),pageBean.getMaxSize());
 		

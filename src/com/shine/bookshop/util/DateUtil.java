@@ -25,5 +25,9 @@ public class DateUtil {
 	public static Timestamp getTimestamp() {
 		return Timestamp.valueOf(show());
 	}
-	
+
+	public static String dateshow() {
+		return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	}
+
 }

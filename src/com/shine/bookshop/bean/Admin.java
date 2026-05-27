@@ -12,6 +12,7 @@ public class Admin {
 	private String userName;			//用户名
 	private String passWord;			//用户密码
 	private String name;				//用户姓名
+	private String role;				//角色：admin / sales
 	private Date lastLoginTime;		//最后登录时间
 	
 	public Admin() {}
@@ -19,6 +20,7 @@ public class Admin {
 	public Admin(String userName,String passWord) {
 		this.userName=userName;
 		this.passWord=passWord;
+		this.role = "sales";
 	}
 	
 	public Admin(Integer id, String passWord, String name) {
@@ -26,6 +28,7 @@ public class Admin {
 		this.id = id;
 		this.passWord = passWord;
 		this.name = name;
+		this.role = "sales";
 	}
 
 
@@ -34,6 +37,23 @@ public class Admin {
 		this.userName = userName;
 		this.passWord = passWord;
 		this.name = name;
+		this.role = "sales";
+	}
+
+	public Admin(Integer id, String passWord, String name, String role) {
+		super();
+		this.id = id;
+		this.passWord = passWord;
+		this.name = name;
+		this.role = role;
+	}
+
+	public Admin(String userName, String passWord, String name, String role) {
+		super();
+		this.userName = userName;
+		this.passWord = passWord;
+		this.name = name;
+		this.role = role;
 	}
 
 	public Admin(Map<String,Object> map) {
@@ -41,6 +61,8 @@ public class Admin {
 		this.userName=(String) map.get("userName");
 		this.passWord = (String) map.get("passWord");
 		this.name = (String) map.get("name");
+		Object roleValue = map.get("role");
+		this.role = roleValue == null ? "sales" : String.valueOf(roleValue);
 		this.lastLoginTime=(Date) map.get("lastLoginTime");
 	}
 	
@@ -75,6 +97,14 @@ public class Admin {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 

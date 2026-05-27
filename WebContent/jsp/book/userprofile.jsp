@@ -146,6 +146,10 @@
         <div class="info-label">地址</div>
         <div class="info-value">${landing.address}</div>
     </div>
+    <div class="info-row">
+	        <div class="info-label">邮箱</div>
+	        <div class="info-value">${empty landing.email ? '未设置' : landing.email}</div>
+	    </div>
 
     <div class="btn-area">
         <!-- 返回首页 -->

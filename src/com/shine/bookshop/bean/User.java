@@ -12,19 +12,16 @@ public class User {
     private int age;            //用户年龄
     private String tell;        //用户电话
     private String address;     //用户地址
+    private String email;		//用户邮箱
     private String enabled;		//用户状态y启用n禁用
 
     public User() {}
-    
-    
-    
+
     public User(String userName, String userPassWord) {
 		super();
 		this.userName = userName;
 		this.userPassWord = userPassWord;
 	}
-
-
 
 	public User(String userName, String userPassWord, String name, String sex, int age, String tell, String address) {
 		super();
@@ -36,15 +33,21 @@ public class User {
 		this.tell = tell;
 		this.address = address;
 	}
-    
-    
 
-	
-
-
+	public User(String userName, String userPassWord, String name, String sex, int age, String tell, String address, String email) {
+		super();
+		this.userName = userName;
+		this.userPassWord = userPassWord;
+		this.name = name;
+		this.sex = sex;
+		this.age = age;
+		this.tell = tell;
+		this.address = address;
+		this.email = email;
+	}
 
 	public User(int userId, String userPassWord, String name, String sex, int age, String tell, String address,
-			String enabled) {
+			String email, String enabled) {
 		super();
 		this.userId = userId;
 		this.userPassWord = userPassWord;
@@ -53,10 +56,9 @@ public class User {
 		this.age = age;
 		this.tell = tell;
 		this.address = address;
+		this.email = email;
 		this.enabled = enabled;
 	}
-
-
 
 	public User(Map<String,Object> map) {
     	userId=(int) map.get("userId");
@@ -67,9 +69,11 @@ public class User {
     	age=(int) map.get("age");
     	tell=(String) map.get("tell");
     	address=(String) map.get("address");
+    	Object emailValue = map.get("email");
+    	email = emailValue == null ? null : String.valueOf(emailValue);
     	enabled=(String) map.get("enabled");
     }
-    
+
 	public int getUserId() {
 		return userId;
 	}
@@ -126,7 +130,14 @@ public class User {
 		this.address = address;
 	}
 
-	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -134,7 +145,6 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 	public String getEnabled() {
 		return enabled;
@@ -147,12 +157,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPassWord=" + userPassWord + ", name=" + name
-				+ ", sex=" + sex + ", age=" + age + ", tell=" + tell + ", address=" + address + ", enabled=" + enabled
-				+ "]";
+				+ ", sex=" + sex + ", age=" + age + ", tell=" + tell + ", address=" + address + ", email=" + email
+				+ ", enabled=" + enabled + "]";
 	}
-
-
-	
-    
 
 }

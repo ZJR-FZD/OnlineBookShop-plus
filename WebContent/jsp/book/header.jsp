@@ -7,8 +7,9 @@
 						<c:choose>
 							<c:when test="${empty landing}">
 								<div class="top-right">
-									<a href="jsp/book/reg.jsp?type=login">用户登录</a>
 									<a href="jsp/book/reg.jsp?type=reg">用户注册</a>
+									<a href="jsp/book/reg.jsp?type=login">用户登录</a>
+									<a href="jsp/admin/login.jsp?role=sales" class="sales-login-btn">销售登录</a>
 									<a href="jsp/admin/login.jsp" class="admin-login-btn">管理员登录</a>
 								</div>
 							</c:when>

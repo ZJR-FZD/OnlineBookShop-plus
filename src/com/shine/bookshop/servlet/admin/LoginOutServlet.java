@@ -21,7 +21,8 @@ public class LoginOutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().removeAttribute("admin_user");
+		request.getSession().removeAttribute("adminUser");
+		request.getSession().removeAttribute("adminRole");
 		response.sendRedirect("jsp/book/index.jsp");
 	}
 

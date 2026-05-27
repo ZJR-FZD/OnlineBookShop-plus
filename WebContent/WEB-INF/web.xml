@@ -11,7 +11,7 @@
   </context-param>
   <context-param>
     <param-name>ver</param-name>
-    <param-value>管理员登录！</param-value>
+    <param-value>后台管理系统</param-value>
   </context-param>
   <servlet>
     <servlet-name>admin</servlet-name>

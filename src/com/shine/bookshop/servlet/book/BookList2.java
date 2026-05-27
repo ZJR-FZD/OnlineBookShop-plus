@@ -1,7 +1,6 @@
 package com.shine.bookshop.servlet.book;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +13,7 @@ import com.shine.bookshop.bean.Book;
 import com.shine.bookshop.bean.PageBean;
 import com.shine.bookshop.dao.BookDao;
 import com.shine.bookshop.dao.impl.BookDaoImpl;
+import com.shine.bookshop.util.OperationLogUtil;
 
 /**
  * Servlet implementation class BookList
@@ -29,9 +29,7 @@ public class BookList2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String searchname = new String(request.getParameter("searchname").getBytes("iso-8859-1"),"utf-8");
-		String searchname1 = request.getParameter("searchname");
-		bookList(request,response,searchname1);
+		bookList(request,response,request.getParameter("searchname"));
 	}
 
 	private void bookList(HttpServletRequest request, HttpServletResponse response, String searchname) throws ServletException, IOException {
@@ -42,15 +40,16 @@ public class BookList2 extends HttpServlet {
 			curPage = Integer.parseInt(page);
 		}
 		
-		PageBean pb=null;
-		List<Book> bookList=new ArrayList<Book>();
-		if(searchname == null || searchname == "") {
+		PageBean pb;
+		List<Book> bookList;
+		if(searchname == null || searchname.trim().isEmpty()) {
 			pb = new PageBean(curPage, MAX_LIST_SIZE, bd.bookReadCount());
 			bookList = bd.bookList(pb);
 		}else {
 			pb = new PageBean(curPage, MAX_LIST_SIZE, bd.bookReadCount(searchname));
 			bookList = bd.bookList(pb,searchname);
 		}
+		OperationLogUtil.recordBrowse((com.shine.bookshop.bean.User) request.getSession().getAttribute("landing"), null, "search:" + searchname, "book search");
 		request.setAttribute("title", "所有图书");
 		
 		request.setAttribute("pageBean", pb);

@@ -86,13 +86,14 @@ body {
 
 /* 标题图标 */
 .left .list h3::before {
-    content: '';
-    width: 4px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
-    position: absolute;
-    left: 8px;
+    content: '\25CF';
+    font-size: 8px;
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+    opacity: 0.5;
 }
 
 /* 展开箭头 */
@@ -141,6 +142,27 @@ body {
     background: none;
     margin-right: 8px;
     font-size: 18px;
+}
+
+.left .list:nth-child(4) h3::before {
+    content: '\2665';
+    font-size: 14px;
+    color: #f5576c;
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
+}
+.left .list:nth-child(5) h3::before {
+    content: '\2605';
+    font-size: 14px;
+    color: #f0ad4e;
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-right: 8px;
 }
 
 /* 二级菜单容器 */

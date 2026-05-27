@@ -77,7 +77,7 @@
 		<h3 class="text-center">${adminMessage}</h3>
 	</c:if>
 	<div class="container">
-		<h2 class="text-center">用户修改</h2>
+		<h2 class="text-center">编辑销售人员</h2>
 		<form action="jsp/admin/AdminManageServlet?action=update" method="post" class="form-horizontal" onsubmit="javascript:return checkAdd();">
 				<input type="hidden" name="id" value="${adminInfo.id}">
 				<div class="form-group">
@@ -111,6 +111,18 @@
 					</div>
 					<div class="col-sm-4">
 						<span class="Validform_checktip">姓名为2~8位字符</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="role" class="col-sm-2 col-sm-offset-2 control-label">角色：</label>
+					<div class="col-sm-4">
+						<select name="role" id="role" class="form-control">
+							<option value="sales" ${adminInfo.role eq 'sales' ? 'selected' : ''}>销售人员</option>
+							<option value="admin" ${adminInfo.role eq 'admin' ? 'selected' : ''}>管理员</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<span class="Validform_checktip">可用于销售人员密码重置或权限调整</span>
 					</div>
 				</div>
 				<div class="form-group">

@@ -162,6 +162,15 @@
 				</div>
 			</div>
 			<div class="form-group">
+					<label for="email" class="col-md-2 col-md-offset-2 control-label">邮箱：</label>
+					<div class="col-md-4">
+						<input type="text" id="email" name="email" class="form-control" value="${userInfo.email }" placeholder="选填">
+					</div>
+					<div class="col-md-4">
+						<span class="Validform_checktip">选填</span>
+					</div>
+				</div>
+			<div class="form-group">
 				<label for="enabled" class="col-md-2 col-md-offset-2 control-label">启用状态</label>
 				<div class="col-md-4">
 					<select class="form-control" name="enabled" id="enabled">

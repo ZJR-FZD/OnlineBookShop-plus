@@ -400,7 +400,7 @@
           <div class="info-label">订单状态</div>
           <div class="info-content">
              <c:if test="${order.orderStatus eq 1}">
-                <span class="status-badge status-submitted">🔴 已提交</span>
+                <span class="status-badge status-submitted">🔴 待处理</span>
              </c:if>
              <c:if test="${order.orderStatus eq 2}">
                 <span class="status-badge status-shipped">🚚 已发货</span>

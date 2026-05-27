@@ -13,6 +13,7 @@ public class Book {
 	private String press; // 图书出版社
 	private int catalogId; // 图书分类id
 	private int imgId; // 图片id
+	private int stock; // 库存
 	private Date addTime;//上架时间
 
 	private Catalog catalog = new Catalog(); // 图书分类类属性
@@ -30,6 +31,8 @@ public class Book {
 		this.author = (String) map.get("author");
 		this.press = (String) map.get("press");
 		this.addTime=(Date) map.get("addTime");
+		Object stockValue = map.get("stock");
+		this.stock = stockValue == null ? 0 : ((Number) stockValue).intValue();
 		this.catalog = new Catalog(map);
 		this.upLoadImg = new UpLoadImg(map);
 	}
@@ -101,6 +104,14 @@ public class Book {
 		;
 	}
 
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	public Catalog getCatalog() {
 		return catalog;
 	}
@@ -129,6 +140,7 @@ public class Book {
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookName=" + bookName + ", price=" + price + ", description=" + description
 				+ ", author=" + author + ", press=" + press + ", catalogId=" + catalogId + ", imgId=" + imgId
+				+ ", stock=" + stock
 				+ ", catalog=" + catalog + ", upLoadImg=" + upLoadImg + "]";
 	}
 

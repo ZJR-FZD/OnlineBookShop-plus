@@ -130,6 +130,15 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label for="email" class="col-md-2 control-label">邮箱：</label>
+								<div class="col-md-6">
+									<input type="text" id="email" name="email" class="form-control" placeholder="选填，用于接收订单确认邮件">
+								</div>
+								<div class="col-md-4">
+									<span class="Validform_checktip">选填</span>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-md-2  control-label col-md-offset-2">
 									<input class="btn btn-success btn-block" type="submit" value="注册">
 								</label>
@@ -145,7 +154,7 @@
 							<div class="form-group">
 								<label for="l_userName" class="col-md-4 control-label">用户名：</label>
 								<div class="col-md-6">
-									<input name="userName" id="l_userName" type="text" class="form-control" >
+									<input name="userName" id="l_userName" type="text" class="form-control" value="user">
 									<span class="Validform_checktip">&nbsp</span>
 								</div>
 
@@ -153,7 +162,7 @@
 							<div class="form-group">
 								<label for="l_passWord" class="col-md-4  control-label">密码：</label>
 								<div class="col-md-6">
-									<input type="password" name="passWord" id="l_passWord" class="form-control">
+									<input type="password" name="passWord" id="l_passWord" class="form-control" value="1234">
 									<span class="Validform_checktip">&nbsp</span>
 								</div>
 							</div>

@@ -174,6 +174,14 @@ select.form-control {
             <div class="col-sm-4 Validform_checktip"></div>
         </div>
 
+                <div class="form-group">
+                  <label class="col-sm-2 col-sm-offset-2 control-label">库存</label>
+                  <div class="col-sm-4">
+                    <input type="text" name="stock" class="form-control" value="0">
+                  </div>
+                  <div class="col-sm-4 Validform_checktip">建议录入整数库存</div>
+                </div>
+
         <div class="form-group">
             <label class="col-sm-2 col-sm-offset-2 control-label">图片上传</label>
             <div class="col-sm-4">

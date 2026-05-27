@@ -24,7 +24,7 @@
 		<a class="title" href="jsp/admin/main.jsp" target="rFrame">书店后台管理系统</a>
 		<div class="btn-group adminName">
 			<button type="button" class="btn btn-default dropdown-toggle">
-			    ${adminUser.userName} <span class="caret"></span>
+			    ${adminUser.userName} <small>(${adminUser.role eq 'admin' ? '管理员' : '销售人员'})</small> <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-right">
 			    <li><a href="LoginOutServlet" target="_top" onClick="return confirm('确定要退出系统了么？')">退 出 登 录</a></li>

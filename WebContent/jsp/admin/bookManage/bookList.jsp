@@ -94,6 +94,7 @@
 				<th>作者</th>
 				<th>出版社</th>
 				<th>价格</th>
+				<th>库存</th>
 				<th width="140px;">操作</th>
 			</tr>
 			<c:choose>
@@ -106,6 +107,7 @@
 							<td>${i.author}</td>
 							<td>${i.press}</td>
 							<td>${i.price}</td>
+							<td>${i.stock}</td>
 							<td class="noClick">
 								<a class="btn btn-default btn-xs" href="jsp/admin/BookManageServlet?action=detail&id=${i.bookId}">详情</a>
 								<a class="btn btn-info btn-xs" href="jsp/admin/BookManageServlet?action=edit&id=${i.bookId}">修改</a>

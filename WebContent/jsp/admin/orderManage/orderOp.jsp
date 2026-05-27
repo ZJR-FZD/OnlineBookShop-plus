@@ -17,8 +17,11 @@
 	<link rel="stylesheet" href="bs/css/bootstrap.css">
     <link rel="stylesheet" href="bs/css/bootstrap-purple-theme.css">
 	<link rel="stylesheet" href="css/admin/adminManage/userList.css">
-	<style type="text/css">
-		
+<style type="text/css">
+		.status-tag { display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;color:#fff; }
+		.status-tag.st1 { background:#f0ad4e; }
+		.status-tag.st2 { background:#5bc0de; }
+		.status-tag.st3 { background:#5cb85c; }
 	</style>
 </head>
 <body>
@@ -60,9 +63,9 @@
 							<td>${i.orderDate}</td>
 							<td>${i.money}</td>
 							<td>
-								<c:if test="${i.orderStatus eq 1 }"><span style="background:red;color:#fff;">已提交</span></c:if>
-								<c:if test="${i.orderStatus eq 2 }"><span style="background:green;color:#fff;">已发货</span></c:if>
-								<c:if test="${i.orderStatus eq 3 }"><span >已完成</span></c:if>
+<c:if test="${i.orderStatus eq 1 }"><span class="status-tag st1">待处理</span></c:if>
+<c:if test="${i.orderStatus eq 2 }"><span class="status-tag st2">已发货</span></c:if>
+<c:if test="${i.orderStatus eq 3 }"><span class="status-tag st3">已完成</span></c:if>
 							</td>
 							<td>
 								<a class="btn btn-default btn-sm" href="jsp/admin/OrderManageServlet?action=detail&id=${i.orderId}">详情</a>

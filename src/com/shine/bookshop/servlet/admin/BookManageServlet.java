@@ -31,6 +31,8 @@ import com.shine.bookshop.dao.UpLoadImgDao;
 import com.shine.bookshop.dao.impl.BookDaoImpl;
 import com.shine.bookshop.dao.impl.CatalogDaoImpl;
 import com.shine.bookshop.dao.impl.UpLoadImgDaoImpl;
+import com.shine.bookshop.util.IpUtil;
+import com.shine.bookshop.util.OperationLogUtil;
 import com.shine.bookshop.util.RanUtil;
 
 import net.sf.json.JSONObject;
@@ -185,7 +187,9 @@ public class BookManageServlet extends HttpServlet {
 		book.setAuthor(request.getParameter("author"));
 		book.setPress(request.getParameter("press"));
 		book.setPrice(Double.parseDouble(request.getParameter("price")));
-		book.setDescription(request.getParameter("description"));
+		book.setDescription(request.getParameter("desc"));
+		String stock = request.getParameter("stock");
+		book.setStock(stock == null || stock.trim().isEmpty() ? 0 : Integer.parseInt(stock));
 		
 		if(bookDao.bookUpdate(book)) {
 			request.setAttribute("bookMessage", "修改成功");
@@ -360,6 +364,8 @@ public class BookManageServlet extends HttpServlet {
 			book.setDescription(map.get("desc"));
 			book.setAuthor(map.get("author"));
 			book.setPress(map.get("press"));
+			String stock = map.get("stock");
+			book.setStock(stock == null || stock.trim().isEmpty() ? 0 : Integer.parseInt(stock));
 			// 图书分类信息
 			Catalog catalog = book.getCatalog();
 			catalog.setCatalogId(Integer.parseInt(map.get("catalog")));

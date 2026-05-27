@@ -22,7 +22,7 @@
 	<c:if test="${!empty adminMessage}">
 		<h3 class="text-center">${adminMessage}</h3>
 	</c:if>
-	<h2 class="text-center">管理员用户列表</h2>
+		<h2 class="text-center">销售人员列表</h2>
 	<div class="container content">
 		<div class="funbtn">
 			<a id="batDel" class="btn btn-danger" href="javascript:void(0)" >批量删除</a>
@@ -38,6 +38,7 @@
 				<th>用户名</th>
 				<th>密码</th>
 				<th>姓名</th>
+				<th>角色</th>
 				<th>最后登录时间</th>
 				<th>操作</th>
 			</tr>
@@ -50,6 +51,7 @@
 							<td>${i.userName}</td>
 							<td>${i.passWord}</td>
 							<td>${i.name}</td>
+							<td>${i.role}</td>
 							<td>${i.lastLoginTime}</td>
 							<td>
 								<a class="btn btn-info btn-sm" href="jsp/admin/AdminManageServlet?action=edit&id=${i.id}">修改</a>

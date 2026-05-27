@@ -1,6 +1,8 @@
 package com.shine.bookshop.servlet.admin;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,7 @@ import com.shine.bookshop.dao.impl.BookDaoImpl;
 import com.shine.bookshop.dao.impl.OrderDaoImpl;
 import com.shine.bookshop.dao.impl.OrderItemDaoImpl;
 import com.shine.bookshop.dao.impl.UserDaoImpl;
+import com.shine.bookshop.util.DbUtil;
 
 @WebServlet("/jsp/admin/OrderManageServlet")
 public class OrderManageServlet extends HttpServlet {
@@ -216,22 +219,38 @@ public class OrderManageServlet extends HttpServlet {
 		orderList(request, response);
 	}
 
-	/** 销售统计 */
+	/** 销售报表（排行+趋势+分类+库存） */
 	private void orderStatistic(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		OrderDao orderDao = new OrderDaoImpl();
+		// 商品销售排行 TOP 20
+		request.setAttribute("rankList", DbUtil.executeQuery(
+				"select b.bookName, c.catalogName, coalesce(sum(oi.quantity),0) as sold, coalesce(sum(oi.quantity*b.price),0) as revenue from s_orderitem oi join s_book b on oi.bookId=b.bookId join s_catalog c on b.catalogId=c.catalogId group by oi.bookId order by sold desc limit 20"));
 
-		// 1️⃣ 订单总数
-		int total = (int) orderDao.orderReadCount();
+		// 按日销售趋势（最近30天）
+		request.setAttribute("dayStats", DbUtil.executeQuery(
+				"select DATE_FORMAT(orderDate, '%m-%d') as day, count(*) as cnt, coalesce(sum(money),0) as total from s_order where orderDate >= date_sub(curdate(), interval 30 day) group by day order by day"));
 
-		// 2️⃣ 构造一个“一页装下全部订单”的 PageBean
-		PageBean pb = new PageBean(1, total, total);
+		// 按周销售趋势（最近12周）
+		request.setAttribute("weekStats", DbUtil.executeQuery(
+				"select concat(year(orderDate),'-W',week(orderDate)) as wk, count(*) as cnt, coalesce(sum(money),0) as total from s_order where orderDate >= date_sub(curdate(), interval 84 day) group by wk order by wk"));
 
-		// 3️⃣ 查询全部订单
-		request.setAttribute("orderList", orderDao.orderList(pb));
+		// 按月份销售统计
+		request.setAttribute("monthStats", DbUtil.executeQuery(
+				"select DATE_FORMAT(orderDate, '%Y-%m') as month, count(*) as cnt, coalesce(sum(money),0) as totalMoney from s_order group by month order by month"));
 
-		// 4️⃣ 转发到统计页面
+		// 按图书类别销售统计
+		request.setAttribute("catalogSales", DbUtil.executeQuery(
+				"select c.catalogName, coalesce(sum(oi.quantity),0) as soldCount, coalesce(sum(oi.quantity * b.price),0) as totalMoney from s_orderitem oi join s_book b on oi.bookId=b.bookId join s_catalog c on b.catalogId=c.catalogId join s_order o on oi.orderId=o.orderId group by c.catalogName order by soldCount desc"));
+
+		// 订单状态汇总
+		request.setAttribute("statusStats", DbUtil.executeQuery(
+				"select orderStatus, count(*) as total, coalesce(sum(money),0) as money from s_order group by orderStatus order by orderStatus"));
+
+		// 库存汇总
+		request.setAttribute("catalogStock", DbUtil.executeQuery(
+				"select c.catalogName, count(*) as bookCount, coalesce(sum(b.stock),0) as stockTotal from s_book b join s_catalog c on b.catalogId=c.catalogId group by c.catalogName order by bookCount desc"));
+
 		request.getRequestDispatcher("orderManage/orderStatistic.jsp")
 				.forward(request, response);
 	}

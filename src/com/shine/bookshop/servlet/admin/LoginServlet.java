@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.shine.bookshop.bean.Admin;
 import com.shine.bookshop.dao.AdminDao;
 import com.shine.bookshop.dao.impl.AdminDaoImpl;
+import com.shine.bookshop.util.IpUtil;
+import com.shine.bookshop.util.OperationLogUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -43,6 +45,8 @@ public class LoginServlet extends HttpServlet {
 		if(list.size()==0) {
 			if(ud.userLogin(admin)) {
 				request.getSession().setAttribute("adminUser",admin );
+				request.getSession().setAttribute("adminRole", admin.getRole());
+				OperationLogUtil.recordAdminLogin(admin.getUserName(), admin.getRole(), IpUtil.getClientIp(request));
 				response.sendRedirect(mainPath);
 				return;
 			}else {

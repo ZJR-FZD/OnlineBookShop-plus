@@ -324,6 +324,12 @@
           </div>
        </div>
 
+       <!-- 库存 -->
+       <div class="info-row">
+          <div class="info-label">库存</div>
+          <div class="info-content">${bookInfo.stock}</div>
+       </div>
+
        <!-- 上架日期 -->
        <div class="info-row">
           <div class="info-label">上架日期</div>
