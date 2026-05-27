@@ -6,7 +6,7 @@
 
 # 使用说明
 
-http://113.46.205.78:8080/
+http://8.163.84.34:8080/
 
 点击上面的链接，即可进入首页。
 
@@ -57,7 +57,7 @@ http://113.46.205.78:8080/
 ## 项目结构
 
 ```
-OnlineBookShop/
+OnlineBookShop-plus/
 ├── src/com/shine/bookshop/
 │   ├── bean/          (实体类)
 │   ├── dao/           (数据访问接口+实现)
@@ -79,96 +79,3 @@ OnlineBookShop/
 ├── bookshop.sql       (数据库初始化脚本)
 └── out/artifacts/     (编译输出目录)
 ```
-
-# 华为云部署
-
-## 一、环境准备（华为云 ECS Ubuntu）
-
-0. 购买华为云服务器，记录公网 IP，安全组开放 8080 端口（IPv4 + IPv6）
-
-1. 更新系统并安装 JDK 8
-```bash
-apt update && apt install -y openjdk-8-jdk
-java -version
-```
-
-2. 安装 Tomcat 9
-```bash
-wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
-tar -zxvf apache-tomcat-9.0.80.tar.gz -C /usr/local/
-mv /usr/local/apache-tomcat-9.0.80 /usr/local/tomcat
-/usr/local/tomcat/bin/startup.sh
-```
-
-3. 安装 MySQL 并配置认证
-```bash
-apt install -y mysql-server
-systemctl start mysql && systemctl enable mysql
-sudo mysql -u root
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
-FLUSH PRIVILEGES; EXIT;
-systemctl restart mysql
-```
-
-## 二、项目部署
-
-1. 克隆代码
-```bash
-cd /usr/local/tomcat/webapps
-git clone https://github.com/ZJR-FZD/OnlineBookShop.git
-cd OnlineBookShop
-```
-
-2. 导入数据库
-```bash
-mysql -u root -p
-SOURCE /usr/local/tomcat/webapps/OnlineBookShop/bookshop.sql;
-SHOW TABLES;
-EXIT;
-```
-
-3. 部署编译产物
-```bash
-cp -rf out/artifacts/shinebookshop_Web_exploded/* ./
-```
-
-4. 设置为 Tomcat 根路径
-```bash
-/usr/local/tomcat/bin/shutdown.sh
-rm -rf /usr/local/tomcat/webapps/ROOT
-mv /usr/local/tomcat/webapps/OnlineBookShop /usr/local/tomcat/webapps/ROOT
-```
-
-5. 替换服务器 IP（关键步骤）
-```bash
-cd /usr/local/tomcat/webapps/ROOT
-sed -i 's/localhost:8080/你的公网IP:8080/g' $(grep -rl "localhost:8080" ./ | xargs)
-grep -r "你的公网IP:8080" ./
-/usr/local/tomcat/bin/startup.sh
-```
-
-## 三、邮件配置（可选）
-
-编辑 `WEB-INF/classes/dbinfo.properties`，填入 QQ 邮箱 SMTP 授权码：
-```properties
-EMAIL_HOST=smtp.qq.com
-EMAIL_PORT=465
-EMAIL_USER=你的QQ邮箱@qq.com
-EMAIL_PASS=你的QQ邮箱授权码
-```
-不配置则用户下单后不会发送邮件（不影响其他功能）。
-
-## 四、服务器重启
-
-```bash
-systemctl start mysql
-/usr/local/tomcat/bin/startup.sh
-```
-
-## 五、问题排查
-
-1. **数据库连接失败**：`tail -f /usr/local/tomcat/logs/catalina.out` 查看日志
-2. **404 错误**：确认项目已重命名为 ROOT，确认有编译后的 class 文件
-3. **SQL 1060 Duplicate column**：表中已存在该列，忽略即可（ALTER TABLE 仅作增量兼容）
-4. **Linux 大小写敏感**：确保 Java 代码中表名与 SQL 文件一致

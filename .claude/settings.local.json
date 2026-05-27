@@ -148,7 +148,10 @@
       "Read(//tmp/**)",
       "Bash(git checkout *)",
       "Bash(sed -i '73 a\\\\\\\\t\\\\t\\\\t\\\\t<li><a href=\"jsp/admin/AnalyticsServlet?action=profile\" target=\"rFrame\">用户画像</a></li>' WebContent/jsp/admin/left.jsp)",
-      "Bash(sed -n '71,78p' WebContent/jsp/admin/left.jsp)"
+      "Bash(sed -n '71,78p' WebContent/jsp/admin/left.jsp)",
+      "Bash([ -f \"out/artifacts/shinebookshop_Web_exploded/$f\" ])",
+      "Bash([ ! -f \"out/artifacts/shinebookshop_Web_exploded/$f\" ])",
+      "Bash(cp WebContent/__TRACKED_VAR__ out/artifacts/shinebookshop_Web_exploded/__TRACKED_VAR__)"
     ]
   }
 }
