@@ -46,8 +46,7 @@ public class FilterLogin implements Filter {
 					|| urlPath.endsWith("adminManage/adminList.jsp")
 					|| urlPath.endsWith("userManage/userAdd.jsp")
 					|| urlPath.endsWith("userManage/userEdit.jsp")
-					|| urlPath.endsWith("userManage/userList.jsp")
-					|| (urlPath.contains("OrderManageServlet") && "stat".equals(httpRequest.getParameter("action")))) {
+					|| urlPath.endsWith("userManage/userList.jsp")) {
 				String noPath = httpRequest.getScheme() + "://" + httpRequest.getServerName() + ":"
 						+ httpRequest.getServerPort() + httpRequest.getContextPath() + "/jsp/admin/index.jsp";
 				PrintWriter pw = httpResponse.getWriter();

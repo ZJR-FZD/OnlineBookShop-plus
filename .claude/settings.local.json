@@ -161,7 +161,14 @@
       "Bash(cp -r WebContent/jsp/* out/artifacts/shinebookshop_Web_exploded/jsp/)",
       "Bash(cp -r WebContent/css/* out/artifacts/shinebookshop_Web_exploded/css/)",
       "Bash(cp -r WebContent/js/* out/artifacts/shinebookshop_Web_exploded/js/)",
-      "Bash(cp -r WebContent/images/* out/artifacts/shinebookshop_Web_exploded/images/)"
+      "Bash(cp -r WebContent/images/* out/artifacts/shinebookshop_Web_exploded/images/)",
+      "Bash(python3 -c \"import docx; print\\('python-docx ok'\\)\")",
+      "Bash(pandoc \"课程设计报告模板.docx\" -t markdown --wrap=none)",
+      "Bash(pandoc \"课程设计报告-填写版.md\" -o \"课程设计报告-曾婧茹.docx\" --reference-doc=\"课程设计报告模板.docx\" --from=markdown --to=docx)",
+      "Bash(cd \"E:/Java_projects/OnlineBookShop\")",
+      "Bash(mkdir -p out/artifacts/shinebookshop_Web_exploded/jsp/admin/orderManage out/artifacts/shinebookshop_Web_exploded/css/admin out/artifacts/shinebookshop_Web_exploded/WEB-INF/lib)",
+      "Bash(cp -r WebContent/bs/* out/artifacts/shinebookshop_Web_exploded/bs/)",
+      "Bash(cp WebContent/WEB-INF/web.xml out/artifacts/shinebookshop_Web_exploded/WEB-INF/)"
     ]
   }
 }
